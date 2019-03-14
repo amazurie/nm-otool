@@ -6,7 +6,7 @@
 #    By: amazurie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/05 18:23:34 by lbopp             #+#    #+#              #
-#    Updated: 2019/03/01 11:34:44 by amazurie         ###   ########.fr        #
+#    Updated: 2019/03/14 14:59:28 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NM	= ft_nm
 OTOOL	= ft_otool
 
 CC	= gcc
-FLAGS	= 
+FLAGS	= -Wall -Wextra -Werror
 DFLAGS	= -MMD
 LIB	= libft/libft.a
 HEADER	= includes/

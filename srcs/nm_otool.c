@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 14:32:21 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/09 12:40:23 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ static int	load_arch(t_data *d)
 {
 	unsigned int	magi;
 
+	if (check(d, d->map))
+		return (put_err("The file was not recognized as a valid object file"));
 	magi = *(unsigned int *)d->map;
 	d->rev = (magi == MH_CIGAM || magi == MH_CIGAM_64 || magi == FAT_CIGAM);
-	if (d->isot || (d->multi && ft_strncmp(d->map, ARMAG, SARMAG) != 0
-			&& magi != FAT_MAGIC && magi != FAT_CIGAM))
+	if ((d->isot && magi != FAT_MAGIC && magi != FAT_CIGAM
+				&& ft_strncmp(d->map, ARMAG, SARMAG) != 0))
 	{
 		if (d->multi)
 			ft_putchar('\n');
 		ft_putstr(d->arg);
 		ft_putstr(":\n");
 	}
-	if (check(d, d->map))
-		return (put_err("The file was not recognized as a valid object file"));
 	if (magi == FAT_MAGIC || magi == FAT_CIGAM)
 		return (handle_fat(d, d->map));
 	else if (magi == MH_MAGIC_64 || magi == MH_CIGAM_64)

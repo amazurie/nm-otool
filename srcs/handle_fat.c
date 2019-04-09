@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 11:11:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 14:46:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/09 12:43:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,29 @@ static int	check_same_arch(t_data *d, char *ptr)
 
 	i = 0;
 	a = (struct fat_arch *)(ptr + sizeof(struct fat_header));
-	while (++i
+	while (i
 			< rev_uint32_endian(((struct fat_header *)ptr)->nfat_arch, d->rev))
 	{
 		if (mapped_err(d, (void *)a))
 			return (0);
 		if (rev_uint32_endian(a->cputype, d->rev) == CPU_TYPE_X86_64)
-			return (i - 1);
-		a = (struct fat_arch *)((char *)a) + sizeof(struct fat_arch);
+			return (i);
+		a = (struct fat_arch *)((char *)a + sizeof(struct fat_arch));
+		i++;
 	}
 	return (i - 1);
 }
 
 static int	launch(t_data *d, uint32_t magi)
 {
+	if (d->ot && !d->multi
+			&& ft_strncmp(d->map, ARMAG, SARMAG) != 0)
+	{
+		if (d->multi)
+			ft_putchar('\n');
+		ft_putstr(d->arg);
+		ft_putstr(":\n");
+	}
 	if (magi == FAT_MAGIC || magi == FAT_CIGAM)
 		return (handle_fat(d, d->map));
 	else if (magi == MH_MAGIC_64 || magi == MH_CIGAM_64)
@@ -40,7 +49,7 @@ static int	launch(t_data *d, uint32_t magi)
 	else if (magi == MH_MAGIC || magi == MH_CIGAM)
 		return (handle_32b(d, d->map));
 	else if (ft_strncmp(d->map, ARMAG, SARMAG) == 0)
-		handle_arch(d, d->map, magi);
+		return (handle_arch(d, d->map, magi));
 	return (0);
 }
 
@@ -48,7 +57,7 @@ int			handle_fat(t_data *d, char *ptr)
 {
 	struct fat_header	*h;
 	struct fat_arch		*a;
-	int					i;
+	uint32_t			i;
 	uint32_t			magi;
 
 	h = (struct fat_header *)ptr;
@@ -60,7 +69,7 @@ int			handle_fat(t_data *d, char *ptr)
 	while (i++ < rev_uint32_endian(h->nfat_arch, d->rev))
 	{
 		if (mapped_err(d, ptr) || mapped_err(d,
-					(char *)ptr + rev_uint32_endian(a->offset, d->rev)))
+				(char *)ptr + rev_uint32_endian(a->offset, d->rev)))
 			return (1);
 		d->map = (char *)ptr + rev_uint32_endian(a->offset, d->rev);
 		magi = *(uint32_t *)d->map;

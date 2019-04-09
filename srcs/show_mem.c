@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:53:35 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 14:28:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/09 11:53:07 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ void		show_mem(t_data *d)
 		ft_putstr(tmp->segname);
 		ft_putchar(',');
 		ft_putstr(tmp->name);
-		ft_putstr(") section\n");
+		ft_putstr(") section");
+		if (tmp->size > 0)
+			ft_putchar('\n');
 		put_mem(tmp, d->isppc, d->is32b);
 		tmp = tmp->next;
 	}

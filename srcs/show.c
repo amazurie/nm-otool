@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:23:12 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 15:02:03 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:01:20 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void			show_res(t_data *d)
 	t_syml	*syml;
 
 	if (!d->symls)
-	{
-		ft_putendl("No symbol");
 		return ;
-	}
 	syml = d->symls;
 	while (syml)
 	{

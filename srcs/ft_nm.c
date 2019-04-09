@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 14:37:01 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/05 09:55:13 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static int	print_usage(char *arg)
 {
-	ft_putstr("ft_nm: Unknown command line argument '");
-	ft_putstr(arg);
-	ft_putstr("'.\n");
-	ft_putstr("usage: ft_nm [-juU] [file ...]\n");
+	ft_putstr_fd("ft_nm: Unknown command line argument '", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd("'.\n", 2);
+	ft_putstr_fd("usage: ft_nm [-juU] [file ...]\n", 2);
 	return (1);
 }
 

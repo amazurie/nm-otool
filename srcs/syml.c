@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:39:39 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 15:10:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/09 10:45:43 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,40 @@ void		syml_rem_dup(t_syml **symls)
 	if (!symls || !*symls)
 		return ;
 	syml = *symls;
+	tmp = NULL;
 	while (syml && syml->next)
 	{
-		while (syml->next && ft_strcmp(syml->name, syml->next->name) == 0)
+		while (syml && ft_strlen(syml->name) == 0)
+		{
+			if (!tmp)
+			{
+				tmp = syml;
+				syml = syml->next;
+				free(tmp->name);
+				free(tmp);
+				*symls = syml;
+				tmp = NULL;
+				continue;
+			}
+			syml = syml->next;
+			free(tmp->next->name);
+			free(tmp->next);
+			tmp->next = syml;
+		}
+		//TODO test first
+		while (syml->next && syml->next->type == 'U'
+				&& ft_strcmp(syml->name, syml->next->name) == 0)
 		{
 			tmp = syml->next->next;
 			free(syml->next->name);
 			free(syml->next);
 			syml->next = tmp;
 		}
+		tmp = syml;
 		if (syml)
 			syml = syml->next;
 	}
+	syml = *symls;
 }
 
 void		add_syml(t_syml **symls, t_syml *add)
@@ -63,6 +85,7 @@ static void	load_elem(t_data *d, struct nlist_64 *array,
 	tmp->t = array[i].n_type;
 	tmp->desc = array[i].n_desc;
 	tmp->tab = (int *)&(array[i]);
+	//TODO store len then replace ndup with pustr_len
 	tmp->name = ft_strndup(strtab
 			+ rev_uint32_endian(array[i].n_un.n_strx, d->rev),
 			d->size - (size_t)((strtab
@@ -82,6 +105,7 @@ static void	load_elem32(t_data *d, struct nlist *array,
 	tmp->t = array[i].n_type;
 	tmp->desc = array[i].n_desc;
 	tmp->tab = (int *)&(array[i]);
+	//TODO store len then replace ndup with pustr_len
 	tmp->name = ft_strndup(strtab
 			+ rev_uint32_endian(array[i].n_un.n_strx, d->rev),
 			d->size - (size_t)((strtab

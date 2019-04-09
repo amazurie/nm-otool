@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 15:57:16 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 11:33:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/05 10:43:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void			sort_symls(t_syml **symls)
 {
 	t_syml *tmp;
 	t_syml *ptmp;
+	int	i;
 
 	if (!symls || !*symls || !(*symls)->next)
 		return ;
@@ -32,7 +33,9 @@ void			sort_symls(t_syml **symls)
 	ptmp = NULL;
 	while (tmp->next)
 	{
-		if (ft_strcmp(tmp->name, tmp->next->name) > 0)
+		//TODO add hex value check
+		if ((i = ft_strcmp(tmp->name, tmp->next->name)) > 0
+				|| (i == 0 && tmp->addr > tmp->next->addr))
 		{
 			tmp = do_swap(ptmp, tmp, tmp->next);
 			if (tmp)

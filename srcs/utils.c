@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:43:47 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/01 14:27:41 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/05 09:53:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ uint32_t		rev_uint32_endian(uint32_t val, int rev)
 
 int				put_err(char *msg)
 {
-	ft_putendl(msg);
+	ft_putendl_fd(msg, 2);
 	return (1);
 }

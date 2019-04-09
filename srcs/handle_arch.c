@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:02:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/06 11:28:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/09 09:54:41 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,27 @@
 
 static int	handle_ar(t_data *d, char *name, struct ar_hdr *h, uint32_t magi)
 {
-	ft_putchar('\n');
-	ft_putstr(d->arg);
-	ft_putchar('(');
-	ft_putstr(name);
-	ft_putchar(')');
-	ft_putstr(":\n");
 	if (mapped_err(d, (char *)h + sizeof(struct ar_hdr)
 				+ ft_atoi(h->ar_name + ft_strlen(AR_EFMT1))))
 		return (1);
 	d->map = (char *)h + sizeof(*h) + ft_atoi(h->ar_name + ft_strlen(AR_EFMT1));
 	magi = *(uint32_t *)d->map;
 	d->rev = magi == MH_CIGAM || magi == MH_CIGAM_64 || magi == FAT_CIGAM;
+	if (magi != MH_CIGAM && magi != MH_MAGIC && magi != MH_CIGAM_64
+		&& magi != MH_MAGIC_64 && magi != FAT_MAGIC && magi != FAT_CIGAM)
+		return (0);
+	ft_putchar('\n');
+	ft_putstr(d->arg);
+	ft_putchar('(');
+	ft_putstr(name);
+	ft_putchar(')');
+	ft_putstr(":\n");
 	if (magi == MH_CIGAM || magi == MH_MAGIC)
 		handle_32b(d, d->map);
 	else if (magi == MH_CIGAM_64 || magi == MH_MAGIC_64)
 		handle_64b(d, d->map);
 	else if (magi == FAT_MAGIC || magi == FAT_CIGAM)
 		handle_fat(d, d->map);
-	else
-		ft_putendl("[!] archive error");
 	return (0);
 }
 

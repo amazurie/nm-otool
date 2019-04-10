@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/05 09:55:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/10 13:50:40 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	set_data(t_data *d)
 	d->j = 0;
 	d->u = 0;
 	d->up_u = 0;
+	d->g = 0;
 }
 
 static char	check_symbol(t_data *d, char c)
@@ -37,6 +38,8 @@ static char	check_symbol(t_data *d, char c)
 		d->u = 1;
 	else if (c == 'U')
 		d->up_u = 1;
+	else if (c == 'g')
+		d->g = 1;
 	else
 		return (1);
 	return (0);

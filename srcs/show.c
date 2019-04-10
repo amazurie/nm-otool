@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:23:12 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/09 10:01:20 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/10 13:51:31 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void			show_res(t_data *d)
 	while (syml)
 	{
 		if (syml->type && (!d->u || syml->type == 'U')
-				&& (!d->up_u || syml->type != 'U'))
+				&& (!d->up_u || syml->type != 'U')
+				&& (!d->g || (syml->type > 64 && syml->type < 91)))
 		{
 			if (!d->u && !d->j)
 			{

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:23:12 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/10 13:51:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:43:59 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void			show_res(t_data *d)
 				ft_putchar(syml->type);
 				ft_putchar(' ');
 			}
-			ft_putstr(syml->name);
+			ft_putnstr(syml->name, syml->len);
 			ft_putchar('\n');
 		}
 		syml = syml->next;

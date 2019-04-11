@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:45:44 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/08 15:26:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:44:30 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	free_symls(t_data *d)
 	{
 		d->symls = tmp;
 		tmp = d->symls->next;
-		free(d->symls->name);
 		free(d->symls);
 	}
 	d->symls = NULL;

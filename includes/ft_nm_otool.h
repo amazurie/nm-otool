@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:06:38 by amazurie          #+#    #+#             */
-/*   Updated: 2019/03/06 11:34:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/11 10:43:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_syml
 	uint32_t		nsect;
 	uint32_t		desc;
 	uint32_t		t;
+	size_t			len;
 	int				*tab;
 	struct s_syml	*next;
 }					t_syml;
@@ -64,6 +65,7 @@ typedef struct		s_data
 	char			up_u;
 	char			ot;
 	char			od;
+	char			g;
 }					t_data;
 
 int					nm_otool(t_data *d, char *file);
@@ -86,7 +88,6 @@ void				syml_rem_dup(t_syml **symls);
 
 int					mapped_err(t_data *d, void *ptr);
 
-void				sort_symls(t_syml **symls);
 void				symls_merge_sort(t_syml **symls);
 
 void				show_res(t_data *d);

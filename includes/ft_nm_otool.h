@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:06:38 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/12 10:09:41 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:45:47 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_sect
 typedef struct		s_data
 {
 	char			*arg;
+	char			*name;
 	char			*map;
 	t_syml			*symls;
 	t_sect			*sects;
@@ -66,6 +67,7 @@ typedef struct		s_data
 	char			ot;
 	char			od;
 	char			g;
+	char			o;
 }					t_data;
 
 int					nm_otool(t_data *d, char *file);

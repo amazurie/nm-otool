@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 10:23:12 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/11 10:43:59 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:51:05 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,18 @@ void			show_res(t_data *d)
 		{
 			if (!d->u && !d->j)
 			{
+				if (d->o)
+				{
+					ft_putstr(d->arg);
+					ft_putstr(":");
+					if (d->name)
+					{
+						ft_putstr(d->name);
+						ft_putstr(": ");
+					}
+					else
+						ft_putchar(' ');
+				}
 				show_offset(d, syml);
 				ft_putchar(syml->type);
 				ft_putchar(' ');

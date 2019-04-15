@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/09 12:40:23 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/15 11:47:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int			nm_otool(t_data *d, char *file)
 	d->map = d->addr;
 	d->arg = file;
 	d->size = buf.st_size;
+	d->name = NULL;
 	err = load_arch(d);
 	if (munmap(d->addr, buf.st_size) < 0)
 		return (put_err("error: munmap error"));

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 11:11:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/15 12:56:12 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:21:07 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int			handle_fat(t_data *d, char *ptr)
 		magi = *(uint32_t *)d->map;
 		d->rev = (d->map && d->rev) ? magi == MH_CIGAM
 			|| magi == MH_CIGAM_64 || magi == FAT_CIGAM : d->rev;
-		if (!launch(d, magi))
-			return (1);
+		if (d->map <= ptr || !launch(d, magi))
+			return (d->map <= ptr ? put_err("File error") : 1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:06:38 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/15 11:45:47 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:25:20 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ typedef struct		s_data
 	char			j;
 	char			u;
 	char			up_u;
-	char			ot;
-	char			od;
 	char			g;
 	char			o;
+	char			ot;
+	char			od;
+	char			oa;
 }					t_data;
 
 int					nm_otool(t_data *d, char *file);

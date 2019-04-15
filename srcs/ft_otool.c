@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/15 10:44:40 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/15 14:25:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	set_data(t_data *d)
 {
 	d->ot = 0;
 	d->od = 0;
+	d->oa = 0;
 }
 
 static int	print_usage(char *arg, char c)
@@ -40,6 +41,8 @@ static int	check_symbol(t_data *d, char c)
 		d->ot = 1;
 	else if (c == 'd')
 		d->od = 1;
+	else if (c == 'a')
+		d->oa = 1;
 	else
 		return (1);
 	return (0);

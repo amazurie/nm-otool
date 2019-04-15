@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/12 10:17:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/15 10:44:40 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			main(int argc, char **argv)
 	while (--argc)
 	{
 		err = nm_otool(&d, *argv);
-			ft_putchar('\n');
+		ft_putchar('\n');
 		argv++;
 	}
 	return (err ? EXIT_FAILURE : EXIT_SUCCESS);

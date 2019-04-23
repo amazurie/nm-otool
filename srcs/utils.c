@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:43:47 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/05 09:53:10 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:11:51 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				check(t_data *d, void *ptr)
 
 int				mapped_err(t_data *d, void *ptr)
 {
-	if (ptr < (void *)d->map || ptr > (void *)((char *)d->map + d->size))
+	if (ptr < (void *)d->addr || ptr > (void *)((char *)d->addr + d->size))
 		return (1);
 	return (0);
 }

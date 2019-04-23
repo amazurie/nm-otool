@@ -6,52 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:39:39 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/11 10:53:31 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:16:37 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_nm_otool.h"
-
-void		syml_rem_dup(t_syml **symls)
-{
-	t_syml	*syml;
-	t_syml	*tmp;
-
-	if (!symls || !*symls)
-		return ;
-	syml = *symls;
-	tmp = NULL;
-	while (syml && syml->next)
-	{
-		while (syml && ft_strlen(syml->name) == 0)
-		{
-			if (!tmp)
-			{
-				tmp = syml;
-				syml = syml->next;
-				free(tmp);
-				*symls = syml;
-				tmp = NULL;
-				continue;
-			}
-			syml = syml->next;
-			free(tmp->next);
-			tmp->next = syml;
-		}
-		//TODO test first
-		while (syml->next && syml->next->type == 'U'
-				&& ft_strcmp(syml->name, syml->next->name) == 0)
-		{
-			tmp = syml->next->next;
-			free(syml->next);
-			syml->next = tmp;
-		}
-		tmp = syml;
-		if (syml)
-			syml = syml->next;
-	}
-	syml = *symls;
-}
 
 void		add_syml(t_syml **symls, t_syml *add)
 {

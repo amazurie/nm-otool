@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:02:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/15 14:27:48 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:58:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	handle_ar(t_data *d, struct ar_hdr *h, uint32_t magi)
 	else if (magi == MH_CIGAM_64 || magi == MH_MAGIC_64)
 		handle_64b(d, d->map);
 	else if (magi == FAT_MAGIC || magi == FAT_CIGAM)
-		handle_fat(d, d->map);
+		handle_fat(d, d->map, d->rev);
 	return (0);
 }
 

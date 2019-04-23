@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 12:54:05 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/09 09:42:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:15:27 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static char	get_type(t_syml *syml, char *name)
 	char	c;
 
 	c = syml->t & N_TYPE;
+	if ((syml->t & N_STAB))
+		return (0);
 	if (c == N_UNDF)
 		return (syml->addr ? 'C' : 'U');
 	if (c == N_PBUD)

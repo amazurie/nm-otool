@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 15:57:16 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/10 15:27:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:11:01 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void		syml_front_back_split(t_syml *source,
 	slow->next = NULL;
 }
 
-t_syml			*syml_sorted_merge(t_syml *a, t_syml *b)
+t_syml			*syml_sorted_merge(t_syml *a, t_syml *b, int i)
 {
 	t_syml *result;
 
@@ -52,18 +52,19 @@ t_syml			*syml_sorted_merge(t_syml *a, t_syml *b)
 		return (b);
 	else if (b == NULL)
 		return (a);
-	if (ft_strcmp(a->name, b->name) < 0)
+	if ((i && ft_strcmp(a->name, b->name) > 0) || (!i
+			&& ft_strcmp(a->name, b->name) == 0 && a->addr < b->addr))
 	{
 		result = a;
-		result->next = syml_sorted_merge(a->next, b);
+		result->next = syml_sorted_merge(a->next, b, i);
 		return (result);
 	}
 	result = b;
-	result->next = syml_sorted_merge(a, b->next);
+	result->next = syml_sorted_merge(a, b->next, i);
 	return (result);
 }
 
-void			symls_merge_sort(t_syml **headref)
+void			symls_merge_sort(t_syml **headref, int i)
 {
 	t_syml *head;
 	t_syml *a;
@@ -73,7 +74,7 @@ void			symls_merge_sort(t_syml **headref)
 	if ((head == NULL) || (head->next == NULL))
 		return ;
 	syml_front_back_split(head, &a, &b);
-	symls_merge_sort(&a);
-	symls_merge_sort(&b);
-	*headref = syml_sorted_merge(a, b);
+	symls_merge_sort(&a, i);
+	symls_merge_sort(&b, i);
+	*headref = syml_sorted_merge(a, b, i);
 }

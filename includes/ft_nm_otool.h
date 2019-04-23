@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:06:38 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/15 14:25:20 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:16:45 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include <mach-o/ranlib.h>
 # include <mach-o/arch.h>
 # include <ar.h>
+
+# define PPC " (for architecture ppc)"
+# define PPC64 " (for architecture ppc64)"
+# define I386 " (for architecture i386)"
+# define X86_64 " (for architecture x86_64)"
+# define DEFAULT_ARCH " (for architecture )"
 
 typedef struct		s_syml
 {
@@ -61,6 +67,7 @@ typedef struct		s_data
 	size_t			size;
 	char			isot;
 	char			multi;
+	char			rmdup;
 	char			j;
 	char			u;
 	char			up_u;
@@ -75,7 +82,7 @@ int					nm_otool(t_data *d, char *file);
 
 int					handle_64b(t_data *d, char *ptr);
 int					handle_32b(t_data *d, char *ptr);
-int					handle_fat(t_data *d, char *ptr);
+int					handle_fat(t_data *d, char *ptr, int rev);
 int					handle_arch(t_data *d, char *ptr, uint32_t magi);
 
 int					handle_sect(t_data *d, struct load_command *lc);
@@ -87,11 +94,10 @@ int					add_sect_32(t_data *d, struct load_command *lc);
 
 int					add_sym(t_data *d, struct load_command *lc);
 int					syml_letter(t_data *d);
-void				syml_rem_dup(t_syml **symls);
 
 int					mapped_err(t_data *d, void *ptr);
 
-void				symls_merge_sort(t_syml **symls);
+void				symls_merge_sort(t_syml **symls, int i);
 
 void				show_res(t_data *d);
 void				puthexa(size_t hex);

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/15 11:47:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 16:17:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	load_arch(t_data *d)
 		ft_putstr(":\n");
 	}
 	if (magi == FAT_MAGIC || magi == FAT_CIGAM)
-		return (handle_fat(d, d->map));
+		return (handle_fat(d, d->map, d->rev));
 	else if (magi == MH_MAGIC_64 || magi == MH_CIGAM_64)
 		return (handle_64b(d, d->map));
 	else if (magi == MH_MAGIC || magi == MH_CIGAM)
@@ -61,6 +61,7 @@ int			nm_otool(t_data *d, char *file)
 	d->map = d->addr;
 	d->arg = file;
 	d->size = buf.st_size;
+	d->rmdup = 1;
 	d->name = NULL;
 	err = load_arch(d);
 	if (munmap(d->addr, buf.st_size) < 0)

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:45:44 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/12 10:10:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/23 17:14:07 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ static void	free_sects(t_data *d)
 static void	do_work(t_data *d)
 {
 	syml_letter(d);
-	symls_merge_sort(&d->symls);
-	syml_rem_dup(&d->symls);
+	symls_merge_sort(&d->symls, 1);
+	symls_merge_sort(&d->symls, 0);
+//	syml_rem_dup(&d->symls, d->rmdup);
 	if (d->isot)
 		show_mem(d);
 	else
@@ -90,7 +91,7 @@ int			handle_32b(t_data *d, char *ptr)
 	uint32_t				j;
 
 	h = (struct mach_header *)ptr;
-	lc = (struct load_command *)((char *)ptr + sizeof(*h));
+	lc = (struct load_command *)((char *)ptr + sizeof(struct mach_header));
 	d->sects = NULL;
 	d->symls = NULL;
 	d->is32b = 1;

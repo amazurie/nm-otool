@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:02:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/24 14:54:32 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 15:18:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	handle_arch2(t_data *d, char **ptr,
 	char			*str;
 	size_t			len;
 
-	if (mapped_err(d, *ptr))
+	if (mapped_err(d, *ptr) || mapped_err(d, *ptr + sizeof(*header)))
 		return (1);
 	*header = (struct ar_hdr *)*ptr;
 	if (ft_atoi((*header)->ar_size) <= 0)

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 11:07:32 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/23 16:17:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:51:21 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	load_arch(t_data *d)
 {
 	unsigned int	magi;
 
-	if (check(d, d->map))
+	if (mapped_err(d, d->map))
 		return (put_err("The file was not recognized as a valid object file"));
 	magi = *(unsigned int *)d->map;
 	d->rev = (magi == MH_CIGAM || magi == MH_CIGAM_64 || magi == FAT_CIGAM);
@@ -49,7 +49,7 @@ int			nm_otool(t_data *d, char *file)
 
 	err = 0;
 	if ((fd = open(file, O_RDONLY)) < 0)
-		return (put_err("error: file does not exist or permissions denied"));
+		return (put_err("error: file does not exist or permissions denied") + 1);
 	if (fstat(fd, &buf) < 0)
 		return (put_err("error: fstat failure"));
 	if (!S_ISREG(buf.st_mode) && !S_ISLNK(buf.st_mode)

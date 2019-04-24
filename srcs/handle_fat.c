@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 11:11:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/23 17:06:57 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:03:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,28 @@ static int	check_same_arch(t_data *d, char *ptr, int rev)
 	return (0);
 }
 
-static char	*get_ar_msg(struct fat_arch *a, int rev)
+static void	put_ar_msg(struct fat_arch *a, int rev, char ot)
 {
+	char	*s;
+
 	if (rev_uint32_endian(a->cputype, rev) == CPU_TYPE_POWERPC
 		&& rev_uint32_endian(a->cpusubtype, rev) == CPU_SUBTYPE_POWERPC_ALL)
-		return (PPC);
-	if (rev_uint32_endian(a->cputype, rev) == CPU_TYPE_POWERPC64)
-		return (PPC64);
-	if (rev_uint32_endian(a->cputype, rev) == CPU_TYPE_X86)
-		return (I386);
-	if (rev_uint32_endian(a->cputype, rev) == CPU_TYPE_X86_64)
-		return (X86_64);
-	return (DEFAULT_ARCH);
+		s = PPC;
+	else if (rev_uint32_endian(a->cputype, rev) == CPU_TYPE_POWERPC64)
+		s = PPC64;
+	else if (rev_uint32_endian(a->cputype, rev) == CPU_TYPE_X86)
+		s = I386;
+	else if (rev_uint32_endian(a->cputype, rev) == CPU_TYPE_X86_64)
+		s = X86_64;
+	else 
+		s = ot ? "" : DEFAULT_ARCH;
+	if (s[0])
+	{
+		ft_putstr(" (");
+		if (!ot)
+			ft_putstr("for ");
+		ft_putstr(s);
+	}
 }
 
 static int	launch(t_data *d, uint32_t magi, struct fat_arch *a, int mul, int rev)
@@ -51,11 +61,11 @@ static int	launch(t_data *d, uint32_t magi, struct fat_arch *a, int mul, int rev
 	if ((!d->ot && mul) || (d->ot && !d->multi
 			&& ft_strncmp(d->map, ARMAG, SARMAG) != 0))
 	{
-		if (d->multi || (!d->ot && mul == 1))
+		if ((d->multi || mul == 1) && (!d->ot || !d->f))
 			ft_putchar('\n');
 		ft_putstr(d->arg);
 		if (mul == 1)
-			ft_putstr(get_ar_msg(a, rev));
+			put_ar_msg(a, rev, d->isot);
 		ft_putstr(":\n");
 	}
 	d->rev = magi == MH_CIGAM
@@ -79,6 +89,7 @@ int			handle_fat(t_data *d, char *ptr, int rev)
 	uint32_t			magi;
 	int			mul;
 
+	d->f = 1;
 	d->rmdup = 0;
 	h = (struct fat_header *)ptr;
 	a = (struct fat_arch *)(ptr + sizeof(struct fat_header));
@@ -100,6 +111,7 @@ int			handle_fat(t_data *d, char *ptr, int rev)
 		if (d->map <= ptr || launch(d, magi, a, mul, rev))
 			return (d->map <= ptr ? put_err("File error") : 1);
 		a = (struct fat_arch *)((char *)a + sizeof(struct fat_arch));
+		d->f = 0;
 	}
 	return (0);
 }

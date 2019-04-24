@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 13:06:38 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/23 17:16:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:51:09 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include <mach-o/arch.h>
 # include <ar.h>
 
-# define PPC " (for architecture ppc)"
-# define PPC64 " (for architecture ppc64)"
-# define I386 " (for architecture i386)"
-# define X86_64 " (for architecture x86_64)"
-# define DEFAULT_ARCH " (for architecture )"
+# define PPC "architecture ppc)"
+# define PPC64 "architecture ppc64)"
+# define I386 "architecture i386)"
+# define X86_64 "architecture x86_64)"
+# define DEFAULT_ARCH "architecture )"
 
 typedef struct		s_syml
 {
@@ -64,6 +64,7 @@ typedef struct		s_data
 	char			*addr;
 	char			is32b;
 	char			isppc;
+	char			f;
 	size_t			size;
 	char			isot;
 	char			multi;
@@ -95,14 +96,13 @@ int					add_sect_32(t_data *d, struct load_command *lc);
 int					add_sym(t_data *d, struct load_command *lc);
 int					syml_letter(t_data *d);
 
-int					mapped_err(t_data *d, void *ptr);
 
 void				symls_merge_sort(t_syml **symls, int i);
 
 void				show_res(t_data *d);
 void				puthexa(size_t hex);
 
-int					check(t_data *d, void *ptr);
+int					mapped_err(t_data *d, void *ptr);
 uint64_t			rev_uint64_endian(uint64_t val, int rev);
 uint32_t			rev_uint32_endian(uint32_t val, int rev);
 int					put_err(char *msg);

@@ -6,18 +6,11 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:43:47 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/23 14:11:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 12:50:55 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_nm_otool.h"
-
-int				check(t_data *d, void *ptr)
-{
-	if (ptr > (void *)d->addr && ptr <= (void *)((char *)d->addr + d->size))
-		return (1);
-	return (0);
-}
 
 int				mapped_err(t_data *d, void *ptr)
 {

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 13:02:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/24 13:26:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:54:32 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ static int	handle_ar(t_data *d, struct ar_hdr *h, uint32_t magi)
 		ft_putstr(":\n");
 	}
 	if (magi == MH_CIGAM || magi == MH_MAGIC)
-		handle_32b(d, d->map);
+		return (handle_32b(d, d->map));
 	else if (magi == MH_CIGAM_64 || magi == MH_MAGIC_64)
-		handle_64b(d, d->map);
+		return (handle_64b(d, d->map));
 	else if (magi == FAT_MAGIC || magi == FAT_CIGAM)
-		handle_fat(d, d->map, d->rev);
+		return (handle_fat(d, d->map, d->rev));
 	return (0);
 }
 

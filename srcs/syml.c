@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:39:39 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/24 13:50:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 14:56:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int			add_sym(t_data *d, struct load_command *lc)
 	s = (struct symtab_command *)lc;
 	array = (char *)d->map + rev_uint32_endian(s->symoff, d->rev);
 	strtab = d->map + rev_uint32_endian(s->stroff, d->rev);
+	if (mapped_err(d, strtab))
+		return (1);
 	i = -1;
 	while (++i < rev_uint32_endian(s->nsyms, d->rev))
 	{

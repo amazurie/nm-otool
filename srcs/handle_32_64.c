@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 10:45:44 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/24 13:08:29 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:45:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	do_work(t_data *d)
 	syml_letter(d);
 	symls_merge_sort(&d->symls, 1);
 	symls_merge_sort(&d->symls, 0);
-//	syml_rem_dup(&d->symls, d->rmdup);
 	if (d->isot)
 		show_mem(d);
 	else

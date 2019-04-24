@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:39:39 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/23 17:16:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:50:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ static void	load_elem(t_data *d, struct nlist_64 *array,
 	tmp->desc = array[i].n_desc;
 	tmp->tab = (int *)&(array[i]);
 	tmp->name = strtab + rev_uint32_endian(array[i].n_un.n_strx, d->rev);
+	if (mapped_err(d, tmp->name))
+	{
+		free(tmp);
+		return ;
+	}
 	tmp->len = check_len(tmp->name, d->size - (size_t)((strtab
 			+ rev_uint32_endian(array[i].n_un.n_strx, d->rev)) - d->addr));
 	tmp->next = NULL;
@@ -70,6 +75,11 @@ static void	load_elem32(t_data *d, struct nlist *array,
 	tmp->desc = array[i].n_desc;
 	tmp->tab = (int *)&(array[i]);
 	tmp->name = strtab + rev_uint32_endian(array[i].n_un.n_strx, d->rev);
+	if (mapped_err(d, tmp->name))
+	{
+		free(tmp);
+		return ;
+	}
 	tmp->len = check_len(tmp->name, d->size - (size_t)((strtab
 			+ rev_uint32_endian(array[i].n_un.n_strx, d->rev)) - d->addr));
 	tmp->next = NULL;

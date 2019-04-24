@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 11:06:37 by amazurie          #+#    #+#             */
-/*   Updated: 2019/04/24 13:09:53 by amazurie         ###   ########.fr       */
+/*   Updated: 2019/04/24 13:56:02 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ int			add_sect(t_data *d, struct load_command *lc)
 	uint32_t			i;
 
 	s = (struct section_64 *)((char *)lc + sizeof(struct segment_command_64));
+	if (mapped_err(d, d->map + rev_uint32_endian(((struct segment_command_64 *)lc)->fileoff, d->rev)
+			+ rev_uint32_endian(((struct segment_command_64 *)lc)->filesize, d->rev)))
+		return (1);
 	i = rev_uint32_endian(((struct segment_command_64 *)lc)->nsects, d->rev);
 	while (i--)
 	{
@@ -100,6 +103,9 @@ int			add_sect_32(t_data *d, struct load_command *lc)
 	uint32_t		i;
 
 	s = (struct section *)((char *)lc + sizeof(struct segment_command));
+	if (mapped_err(d, d->map + rev_uint32_endian(((struct segment_command *)lc)->fileoff, d->rev)
+			+ rev_uint32_endian(((struct segment_command *)lc)->filesize, d->rev)))
+		return (1);
 	i = rev_uint32_endian(((struct segment_command *)lc)->nsects, d->rev);
 	while (i--)
 	{
